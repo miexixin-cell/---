@@ -11,17 +11,23 @@
   <!-- # 1. 初始畫面 -->
   <!-- ===================== -->
 
-  <!-- # 標題 -->
   <h1>抽獎器</h1>
 
-  <!-- # 抽卡按鈕 -->
-  <button onclick="drawCard()">抽一張</button>
+  <!-- ===================== -->
+  <!-- # 2. 抽卡種類 -->
+  <!-- ===================== -->
 
-  <!-- # 顯示結果的區域 -->
+  <button onclick="drawCharacter()">抽角色</button>
+  <button onclick="drawTalent()">抽天賦</button>
+
+  <!-- ===================== -->
+  <!-- # 3. 顯示結果 -->
+  <!-- ===================== -->
+
   <p id="result">你抽到的是：---</p>
 
   <!-- ===================== -->
-  <!-- # 挑戰完成按鈕（預設隱藏） -->
+  <!-- # 挑戰完成（預設隱藏） -->
   <!-- ===================== -->
 
   <button id="endBtn" onclick="endChallenge()" style="display:none;">
@@ -29,26 +35,52 @@
   </button>
 
   <!-- ===================== -->
-  <!-- # JavaScript 抽卡邏輯 -->
+  <!-- # JavaScript 區 -->
   <!-- ===================== -->
 
   <script>
-    // # 卡庫（選項 A 到 D）
-    const cardPool = ["選項A", "選項B", "選項C", "選項D"];
+    // =====================
+    // # 卡庫
+    // =====================
 
-    // # 抽卡功能
-    function drawCard() {
-      const randomIndex = Math.floor(Math.random() * cardPool.length);
-      const card = cardPool[randomIndex];
+    // # 2. 角色卡池
+    const characterPool = ["角色A", "角色B", "角色C", "角色D"];
 
-      // # 顯示抽卡結果
-      document.getElementById("result").innerText = "你抽到的是：" + card;
+    // # 3. 天賦卡池
+    const talentPool = ["天賦A", "天賦B", "天賦C", "天賦D"];
 
-      // # 抽卡後顯示「挑戰完成」按鈕
+    // =====================
+    // # 抽卡函式
+    // =====================
+
+    // # 抽角色
+    function drawCharacter() {
+      const i = Math.floor(Math.random() * characterPool.length);
+      const card = characterPool[i];
+
+      document.getElementById("result").innerText =
+        "你抽到的是【角色】： " + card;
+
+      // # 顯示挑戰完成按鈕
       document.getElementById("endBtn").style.display = "inline-block";
     }
 
-    // # 挑戰完成：清除結果 + 隱藏按鈕
+    // # 抽天賦
+    function drawTalent() {
+      const i = Math.floor(Math.random() * talentPool.length);
+      const card = talentPool[i];
+
+      document.getElementById("result").innerText =
+        "你抽到的是【天賦】： " + card;
+
+      // # 顯示挑戰完成按鈕
+      document.getElementById("endBtn").style.display = "inline-block";
+    }
+
+    // =====================
+    // # 挑戰完成
+    // =====================
+
     function endChallenge() {
       document.getElementById("result").innerText = "你抽到的是：---";
       document.getElementById("endBtn").style.display = "none";
