@@ -21,29 +21,37 @@
   <p id="result">你抽到的是：---</p>
 
   <!-- ===================== -->
-  <!-- # 3. 挑戰結束按鈕 -->
+  <!-- # 挑戰完成按鈕（預設隱藏） -->
   <!-- ===================== -->
 
-  <button onclick="endChallenge()">挑戰結束</button>
+  <button id="endBtn" onclick="endChallenge()" style="display:none;">
+    挑戰完成
+  </button>
 
   <!-- ===================== -->
   <!-- # JavaScript 抽卡邏輯 -->
   <!-- ===================== -->
 
   <script>
-    // # 2. 卡庫（選項 A 到 D）
+    // # 卡庫（選項 A 到 D）
     const cardPool = ["選項A", "選項B", "選項C", "選項D"];
 
     // # 抽卡功能
     function drawCard() {
       const randomIndex = Math.floor(Math.random() * cardPool.length);
       const card = cardPool[randomIndex];
+
+      // # 顯示抽卡結果
       document.getElementById("result").innerText = "你抽到的是：" + card;
+
+      // # 抽卡後顯示「挑戰完成」按鈕
+      document.getElementById("endBtn").style.display = "inline-block";
     }
 
-    // # 挑戰結束：清除結果
+    // # 挑戰完成：清除結果 + 隱藏按鈕
     function endChallenge() {
       document.getElementById("result").innerText = "你抽到的是：---";
+      document.getElementById("endBtn").style.display = "none";
     }
   </script>
 
