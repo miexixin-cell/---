@@ -4,111 +4,53 @@
   <meta charset="UTF-8">
   <title>抽獎器</title>
   <link rel="stylesheet" href="style.css">
-  
 </head>
 
 <body>
 
   <!-- ===================== -->
-  <!-- # 1. 標題 -->
+  <!-- # 標題 -->
   <!-- ===================== -->
-
   <h1>抽獎器</h1>
 
   <!-- ===================== -->
-  <!-- # 2. 抽卡按鈕 -->
+  <!-- # 抽卡按鈕 -->
   <!-- ===================== -->
-
   <button onclick="drawCharacter()">抽角色</button>
   <button onclick="drawTalent()">抽天賦</button>
   <button onclick="drawNoChallenge()">抽不要做挑戰</button>
 
   <!-- ===================== -->
-  <!-- # 3. 顯示結果（分開顯示） -->
+  <!-- # 抽卡結果顯示 -->
   <!-- ===================== -->
-
   <p id="characterResult">你抽到的角色是：---</p>
   <p id="talentResult">你抽到的天賦是：---</p>
   <p id="noChallengeResult">你抽到的不要做挑戰是：---</p>
 
   <!-- ===================== -->
-  <!-- # 4. 挑戰完成（重置所有抽卡） -->
+  <!-- # 編輯卡片區域 -->
   <!-- ===================== -->
 
-  <button id="endBtn" onclick="endChallenge()" style="display:none;">
-    挑戰完成
-  </button>
+  <h2>編輯角色卡池</h2>
+  <input id="characterInput" placeholder="輸入角色名稱">
+  <button onclick="addCharacter()">新增</button>
+  <ul id="characterList"></ul>
+
+  <h2>編輯天賦卡池</h2>
+  <input id="talentInput" placeholder="輸入天賦名稱">
+  <button onclick="addTalent()">新增</button>
+  <ul id="talentList"></ul>
+
+  <h2>編輯不要做挑戰卡池</h2>
+  <input id="noChallengeInput" placeholder="輸入不要做挑戰">
+  <button onclick="addNoChallenge()">新增</button>
+  <ul id="noChallengeList"></ul>
 
   <!-- ===================== -->
-  <!-- # JavaScript -->
+  <!-- # 一鍵重置 -->
   <!-- ===================== -->
+  <button onclick="resetAll()">一鍵重置</button>
 
-  <script>
-    // =====================
-    // # 卡池
-    // =====================
-
-    const characterPool = ["角色A", "角色B", "角色C", "角色D"];
-    const talentPool = ["天賦A", "天賦B", "天賦C", "天賦D"];
-    const noChallengePool = ["不要做A", "不要做B", "不要做C", "不要做D"];
-
-    // =====================
-    // # 抽卡功能
-    // =====================
-
-    function drawCharacter() {
-      const i = Math.floor(Math.random() * characterPool.length);
-      const card = characterPool[i];
-
-      document.getElementById("characterResult").innerText =
-        "你抽到的角色是：" + card;
-
-      showEndButton();
-    }
-
-    function drawTalent() {
-      const i = Math.floor(Math.random() * talentPool.length);
-      const card = talentPool[i];
-
-      document.getElementById("talentResult").innerText =
-        "你抽到的天賦是：" + card;
-
-      showEndButton();
-    }
-
-    function drawNoChallenge() {
-      const i = Math.floor(Math.random() * noChallengePool.length);
-      const card = noChallengePool[i];
-
-      document.getElementById("noChallengeResult").innerText =
-        "你抽到的不要做挑戰是：" + card;
-
-      showEndButton();
-    }
-
-    // =====================
-    // # 共用功能
-    // =====================
-
-    // # 顯示「挑戰完成」
-    function showEndButton() {
-      document.getElementById("endBtn").style.display = "inline-block";
-    }
-
-    // # 挑戰完成：重置所有抽卡
-    function endChallenge() {
-      document.getElementById("characterResult").innerText =
-        "你抽到的角色是：---";
-
-      document.getElementById("talentResult").innerText =
-        "你抽到的天賦是：---";
-
-      document.getElementById("noChallengeResult").innerText =
-        "你抽到的不要做挑戰是：---";
-
-      document.getElementById("endBtn").style.display = "none";
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
