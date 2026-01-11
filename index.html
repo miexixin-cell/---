@@ -1,20 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>抽獎模擬器</title>
+  <title>抽獎器</title>
 </head>
-<body>
-  <h1>我的抽獎模擬器</h1>
-  <button onclick="draw()">抽一個</button>
-  <p id="result"></p>
 
-<script>
-const items = ["選項A", "選項B", "選項C", "選項D"];
-function draw() {
-  const i = Math.floor(Math.random() * items.length);
-  document.getElementById("result").innerText = "抽到：" + items[i];
-}
-</script>
+<body>
+
+  <!-- ===================== -->
+  <!-- # 1. 初始畫面 -->
+  <!-- ===================== -->
+
+  <!-- # 標題 -->
+  <h1>抽獎器</h1>
+
+  <!-- # 抽卡按鈕 -->
+  <button onclick="drawCard()">抽一張</button>
+
+  <!-- # 顯示結果的區域 -->
+  <p id="result">你抽到的是：---</p>
+
+  <!-- ===================== -->
+  <!-- # 3. 挑戰結束按鈕 -->
+  <!-- ===================== -->
+
+  <button onclick="endChallenge()">挑戰結束</button>
+
+  <!-- ===================== -->
+  <!-- # JavaScript 抽卡邏輯 -->
+  <!-- ===================== -->
+
+  <script>
+    // # 2. 卡庫（選項 A 到 D）
+    const cardPool = ["選項A", "選項B", "選項C", "選項D"];
+
+    // # 抽卡功能
+    function drawCard() {
+      const randomIndex = Math.floor(Math.random() * cardPool.length);
+      const card = cardPool[randomIndex];
+      document.getElementById("result").innerText = "你抽到的是：" + card;
+    }
+
+    // # 挑戰結束：清除結果
+    function endChallenge() {
+      document.getElementById("result").innerText = "你抽到的是：---";
+    }
+  </script>
+
 </body>
 </html>
