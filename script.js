@@ -1,5 +1,5 @@
 // =====================
-// # 初始卡池（重置會回到這裡）
+// # 初始卡池
 // =====================
 
 const initialCharacters = ["角色A", "角色B", "角色C", "角色D"];
@@ -27,18 +27,17 @@ function drawNoChallenge() {
 }
 
 function drawFromPool(pool, elementId, label) {
+  const result = document.getElementById(elementId);
   if (pool.length === 0) {
-    document.getElementById(elementId).innerText =
-      `你抽到的${label}是：卡池為空`;
+    result.innerText = `你抽到的${label}是：卡池為空`;
     return;
   }
   const i = Math.floor(Math.random() * pool.length);
-  document.getElementById(elementId).innerText =
-    `你抽到的${label}是：` + pool[i];
+  result.innerText = `你抽到的${label}是：${pool[i]}`;
 }
 
 // =====================
-// # 編輯卡池（新增 + 刪除）
+// # 新增卡片
 // =====================
 
 function addCharacter() {
@@ -55,19 +54,15 @@ function addNoChallenge() {
 
 function addCard(inputId, pool, renderFn) {
   const input = document.getElementById(inputId);
-  if (input.value.trim() === "") return;
-  pool.push(input.value.trim());
+  const value = input.value.trim();
+  if (!value) return;
+  pool.push(value);
   input.value = "";
   renderFn();
 }
 
-function removeCard(pool, index, renderFn) {
-  pool.splice(index, 1);
-  renderFn();
-}
-
 // =====================
-// # 渲染清單
+// # 渲染清單（含刪除）
 // =====================
 
 function renderCharacterList() {
@@ -85,15 +80,27 @@ function renderNoChallengeList() {
 function renderList(elementId, pool, renderFn) {
   const ul = document.getElementById(elementId);
   ul.innerHTML = "";
+
   pool.forEach((item, index) => {
     const li = document.createElement("li");
-    li.innerHTML = `${item} <button onclick="removeCard(${JSON.stringify(pool)}, ${index}, ${renderFn.name})">刪除</button>`;
+    const text = document.createElement("span");
+    text.innerText = item;
+
+    const btn = document.createElement("button");
+    btn.innerText = "刪除";
+    btn.onclick = () => {
+      pool.splice(index, 1);
+      renderFn();
+    };
+
+    li.appendChild(text);
+    li.appendChild(btn);
     ul.appendChild(li);
   });
 }
 
 // =====================
-// # 一鍵重置（全部回初始）
+// # 一鍵重置
 // =====================
 
 function resetAll() {
@@ -101,16 +108,9 @@ function resetAll() {
   talentPool = [...initialTalents];
   noChallengePool = [...initialNoChallenges];
 
-  document.getElementById("characterResult").innerText =
-    "你抽到的角色是：---";
-  document.getElementById("talentResult").innerText =
-    "你抽到的天賦是：---";
-  document.getElementById("noChallengeResult").innerText =
-    "你抽到的不要做挑戰是：---";
-
-  document.getElementById("characterInput").value = "";
-  document.getElementById("talentInput").value = "";
-  document.getElementById("noChallengeInput").value = "";
+  document.getElementById("characterResult").innerText = "你抽到的角色是：---";
+  document.getElementById("talentResult").innerText = "你抽到的天賦是：---";
+  document.getElementById("noChallengeResult").innerText = "你抽到的不要做挑戰是：---";
 
   renderCharacterList();
   renderTalentList();
@@ -118,7 +118,7 @@ function resetAll() {
 }
 
 // =====================
-// # 初始化畫面
+// # 初始化
 // =====================
 
 renderCharacterList();
